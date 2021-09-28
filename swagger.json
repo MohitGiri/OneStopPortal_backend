@@ -1,0 +1,3222 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "My Telstra Portal",
+    "description": "MyTelstra Portal is a platform to view, manage mobile plans and broadband plans for customers, online recharge, view and manage broadband bills, make broadband payments, track mobile and broadband data usage, and shop for products like mobile broadband tech devices and tech accessories",
+
+    "version": "1.0.0",
+    "apis" : ["./routes/category.js"]
+  },
+  "tags": [
+    {
+      "name": "Categories",
+      "description": "APIs for categories"
+    },
+    {
+      "name": "Products",
+      "description": "APIs for products"
+    },
+    {
+      "name": "User",
+      "description": "APIs for user"
+    },
+    {
+      "name": "Orders",
+      "description": "APIs for order"
+    },
+    {
+      "name": "Cart",
+      "description": "APIs for user cart"
+    },
+    {
+      "name": "Broadband",
+      "description" : "Broadband apis"
+    },
+    {
+      "name": "Broadband Location",
+      "description" : "Broadband Location apis"
+    },
+    {
+      "name": "Broadband Ops",
+      "description" : "Broadband Ops apis"
+    },
+    {
+      "name": "Mobile Plans",
+      "description" : "Mobile Plans apis"
+    }
+  ],
+  "paths": {
+    "/api/category/create/{userId}": {
+      "post": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Create Category",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "UserId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create Category",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Category not present in database",
+            "content": {}
+          },
+          "404": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "200": {
+            "description": "Category Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+      },
+      "/api/categories": {
+        "get": {
+          "tags": [
+            "Categories"
+          ],
+          "summary": "Get All Categories",
+          "responses": {
+            "400": {
+              "description": "Categories not present in database",
+              "content": {}
+            },
+            "404": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "200": {
+              "description": "All Categories",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        }
+        },
+      "/api/category/{categoryId}/{userId}":{
+        "put" : {
+          "tags": [
+            "Categories"
+          ],
+          "summary": "Update Category",
+          "parameters": [
+            {
+              "name": "categoryId",
+              "in": "path",
+              "description": "CategoryId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "userId",
+              "in": "path",
+              "description": "UserId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Update Category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "400": {
+              "description": "Category not found in database",
+              "content": {}
+            },
+            "404": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "200": {
+              "description": "Category Updated Successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "jwt": []
+            }
+          ]
+
+        },
+        "delete" : {
+          "tags": [
+            "Categories"
+          ],
+          "summary": "Delete Category",
+          "parameters": [
+            {
+              "name": "categoryId",
+              "in": "path",
+              "description": "CategoryId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "userId",
+              "in": "path",
+              "description": "UserId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "400": {
+              "description": "Category not found in database",
+              "content": {}
+            },
+            "404": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "200": {
+              "description": "Category Deleted Successfully",
+              "content": {
+                "application/json": {
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "jwt": []
+            }
+          ]
+        }
+      },
+      "/api/product/create/{userId}": {
+        "post": {
+          "tags": [
+            "Products"
+          ],
+          "summary": "Create Product",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "description": "UserId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Create Product",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "400": {
+              "description": "Product not created in database",
+              "content": {}
+            },
+            "404": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "200": {
+              "description": "Product Created Successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ProductOutput"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "jwt": []
+            }
+          ]
+        }
+        },
+      "/api/product/{productId}":{
+        "get": {
+          "tags": [
+            "Products"
+          ],
+          "summary": "Get product",
+          "parameters": [
+            {
+              "name": "productId",
+              "in": "path",
+              "description": "ProductId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "400": {
+              "description": "Product not present in database",
+              "content": {}
+            },
+            "404": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "200": {
+              "description": "Product Details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "jwt": []
+            }
+          ]
+        }
+      },
+      "/api/product/{productId}/{userId}": {
+        "put": {
+          "tags": [
+            "Products"
+          ],
+          "summary": "Update Product",
+          "parameters": [
+            {
+              "name": "productId",
+              "in": "path",
+              "description": "ProductId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "userId",
+              "in": "path",
+              "description": "UserId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "description": "Update Product",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "400": {
+              "description": "Product not found in database",
+              "content": {}
+            },
+            "404": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "200": {
+              "description": "Product Updated Successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "jwt": []
+            }
+          ]
+        },
+        "delete":{
+          "tags": [
+            "Products"
+          ],
+          "summary": "Delete Product",
+          "parameters": [
+            {
+              "name": "productId",
+              "in": "path",
+              "description": "ProductId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "userId",
+              "in": "path",
+              "description": "UserId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "400": {
+              "description": "Product not found in database",
+              "content": {}
+            },
+            "404": {
+              "description": "Bad Request",
+              "content": {}
+            },
+            "200": {
+              "description": "Product Deleted Successfully",
+              "content": {
+                "application/json": {
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "jwt": []
+            }
+          ]
+        
+        }
+        },
+        "/api/products":{
+          "get": {
+            "tags": [
+              "Products"
+            ],
+            "summary": "Get all products",
+            "responses": {
+              "400": {
+                "description": "Products not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Products Details",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Product"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/api/likeproduct/{userId}/{productId}": {
+          "post": {
+            "tags": [
+              "Products"
+            ],
+            "summary": "Add Like for product",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "productId",
+                "in": "path",
+                "description": "ProductId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Add Like",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties":{
+                      "like":{
+                        "type":"number"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Unable to add like for this product",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Review added for this product successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ProductOutput"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+          },
+          "/api/review/{userId}/{productId}": {
+            "post": {
+              "tags": [
+                "Products"
+              ],
+              "summary": "Add review for product",
+              "parameters": [
+                {
+                  "name": "userId",
+                  "in": "path",
+                  "description": "UserId",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "productId",
+                  "in": "path",
+                  "description": "ProductId",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "requestBody": {
+                "description": "Add Review",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "properties":{
+                        "stars":{
+                          "type":"number"
+                        },
+                        "comment":{
+                          "type":"string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": true
+              },
+              "responses": {
+                "400": {
+                  "description": "Unable to add review for this product",
+                  "content": {}
+                },
+                "404": {
+                  "description": "Bad Request",
+                  "content": {}
+                },
+                "200": {
+                  "description": "Like added for this product successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/ProductOutput"
+                      }
+                    }
+                  }
+                }
+              },
+              "security": [
+                {
+                  "jwt": []
+                }
+              ]
+            },
+            "patch": {
+              "tags": [
+                "Products"
+              ],
+              "summary": "Update review for product",
+              "parameters": [
+                {
+                  "name": "userId",
+                  "in": "path",
+                  "description": "UserId",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "productId",
+                  "in": "path",
+                  "description": "ProductId",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "requestBody": {
+                "description": "Update Review",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "properties":{
+                        "stars":{
+                          "type":"number"
+                        },
+                        "comment":{
+                          "type":"string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": true
+              },
+              "responses": {
+                "400": {
+                  "description": "Unable to update review for this product",
+                  "content": {}
+                },
+                "404": {
+                  "description": "Bad Request",
+                  "content": {}
+                },
+                "200": {
+                  "description": "Review updated for this product successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/ProductOutput"
+                      }
+                    }
+                  }
+                }
+              },
+              "security": [
+                {
+                  "jwt": []
+                }
+              ]
+            },
+            "delete": {
+              "tags": [
+                "Products"
+              ],
+              "summary": "Delete review for product",
+              "parameters": [
+                {
+                  "name": "userId",
+                  "in": "path",
+                  "description": "UserId",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "productId",
+                  "in": "path",
+                  "description": "ProductId",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "responses": {
+                "400": {
+                  "description": "Unable to delete review for this product",
+                  "content": {}
+                },
+                "404": {
+                  "description": "Bad Request",
+                  "content": {}
+                },
+                "200": {
+                  "description": "Review deleted for this product successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/ProductOutput"
+                      }
+                    }
+                  }
+                }
+              },
+              "security": [
+                {
+                  "jwt": []
+                }
+              ]
+            }
+            }, 
+        "/api/bulkupload/{userId}":{
+          "post": {
+            "tags": [
+              "Products"
+            ],
+            "summary": "Add many products",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Add Products",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties":{
+                     
+                    }
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Unable to add products to database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Added products to database successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/ProductOutput"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },    
+        "/api/user/{userId}":{
+          "get": {
+            "tags": [
+              "User"
+            ],
+            "summary": "Get User",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "User not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "User Details",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/api/orders/user/{userId}":{
+          "get": {
+            "tags": [
+              "User"
+            ],
+            "summary": "Get all orders for user",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "No orders found",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "User's Order Details",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Order"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/paymentcards/{userId}": {
+          "post": {
+            "tags": [
+              "User"
+            ],
+            "summary": "Add Payment Card for User",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Add Payment Card",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Card"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Payment Card not added for user in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Payment Card Created Successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Card"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          },
+          "get": {
+            "tags": [
+              "User"
+            ],
+            "summary": "Get all saved payment cards of user",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "No payment cards found for user in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "All Payment Card Details",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Card"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+          },
+        "/api/addtocart/{userId}":{
+          "post": {
+            "tags": [
+              "Cart"
+            ],
+            "summary": "Create Cart for user",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Create Cart",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CartIn"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Product not added to cart",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Product added to cart successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Cart"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },  
+        "/api/cart/{userId}":{
+          "get": {
+            "tags": [
+              "Cart"
+            ],
+            "summary": "Get All Products in Cart",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "No products present in cart",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Cart Details",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Cart"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/deletefromcart/{userId}":{
+          "post": {
+            "tags": [
+              "Cart"
+            ],
+            "summary": "Delete product from cart for user",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Delete Product from Cart",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties":{
+                      "id":{
+                        "type":"string"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Unable to delete product from cart",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Product deleted from cart successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/updateproductoncart/{userId}":{
+          "post": {
+            "tags": [
+              "Cart"
+            ],
+            "summary": "Update product on cart for user",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Update Product on Cart",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties":{
+                      "id":{
+                        "type":"string"
+                      },
+                      "quantity":{
+                        "type":"number"
+                      }
+
+                    }
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Unable to update product on cart",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Product updated on cart successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/emptycart/{userId}":{
+          "get": {
+            "tags": [
+              "Cart"
+            ],
+            "summary": "Empty Cart",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Empty cart failed",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Cart Empty Successful",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Cart"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/order/create/{cardId}/{userId}": {
+          "post": {
+            "tags": [
+              "Orders"
+            ],
+            "summary": "Create Order",
+            "parameters": [
+              {
+                "name": "cardId",
+                "in": "path",
+                "description": "CardId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Create Order",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Order not created in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Order Created Successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Order"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+          },
+        "/api/order/all/{userId}":{
+          "get": {
+            "tags": [
+              "Orders"
+            ],
+            "summary": "Get Order History",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "No order history present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Order History Details",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Order"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },    
+        "/api/order/status/{userId}":{
+          "get": {
+            "tags": [
+              "Orders"
+            ],
+            "summary": "Get Order Status",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "No orders present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Order Details",
+                "content": {
+                  "application/json": {
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/broadband":{
+          "get": {
+            "tags": [
+              "Broadband"
+            ],
+            "summary": "Get All Broadband Plans",
+            "responses": {
+              "400": {
+                "description": "Broadband not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "All Broadband Plans",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Broadband"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/api/broadbandbylocation/{broadbandLocId}" :{
+          "get": {
+            "tags": [
+              "Broadband"
+            ],
+            "summary": "Get All Broadband Plans",
+            "parameters": [
+              {
+                "name": "broadbandLocId",
+                "in": "path",
+                "description": "broadband location id",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Broadband not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "All Broadband Plans",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Broadband"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/api/broadband/{broadbandId}" :{
+          "get": {
+            "tags": [
+              "Broadband"
+            ],
+            "summary": "Get All Broadband Plans",
+            "parameters": [
+              {
+                "name": "broadbandId",
+                "in": "path",
+                "description": "broadband id",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Broadband id present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Broadband"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        ,
+        "/api/addbroadband/{userId}" :{
+          "post": {
+            "tags": [
+              "Broadband"
+            ],
+            "summary": "Create New Broadband",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Create Broadband",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Broadband"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Broadband not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband Created Successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Broadband"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/updateBroadbandPlan/{broadbandId}/{userId}" :{
+          "put": {
+            "tags": [
+              "Broadband"
+            ],
+            "summary": "Update Broadband Plans",
+            "parameters": [
+              {
+                "name": "broadbandId",
+                "in": "path",
+                "description": "broadband id",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "user id",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Update Broadband",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Broadband"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Broadband id not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Broadband"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/deletebroadplan/{broadbandId}/{userId}" :{
+          "delete": {
+            "tags": [
+              "Broadband"
+            ],
+            "summary": "Delete Broadband Plans",
+            "parameters": [
+              {
+                "name": "broadbandId",
+                "in": "path",
+                "description": "broadband id",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "user id",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Delete Broadband",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Broadband"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Broadband id not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Deleted Broadband Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Broadband"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+  
+        "/api/broadbandlocation" :{
+          "get": {
+            "tags": [
+              "Broadband Location"
+            ],
+            "summary": "Get All Broadband locations",
+            "responses": {
+              "400": {
+                "description": "Location not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "All Broadband Location",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BroadbandLocation"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/api/addBroadBandLocation/{userId}" :{
+          "post": {
+            "tags": [
+              "Broadband Location"
+            ],
+            "summary": "Create New Broadband Location",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Create Broadband Location",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BroadbandLocation"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Broadband not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband Location Created Successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BroadbandLocation"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/addplantolocation/{broadbandLocId}/{userId}" :{
+          "post": {
+            "tags": [
+              "Broadband Location"
+            ],
+            "summary": "Create New Broadband Location",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "broadbandLocId",
+                "in": "path",
+                "description": "broadbandLocId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Add Broadband plan to Location",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "plans" :{
+                        "type" : "array",
+                        "items" :{
+                          "type" : "object",
+                          "properties": {
+                            "_id" : {
+                              "type" : "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Broadband not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband Location Created Successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BroadbandLocation"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        },
+        "/api/updatebroadlocation/{broadbandLocId}/{userId}":{
+          "put": {
+            "tags": [
+              "Broadband Location"
+            ],
+            "summary": "Update Broadband Location",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Broadband Location",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BroadbandLocation"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Broadband Location not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband Location Created Successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BroadbandLocation"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/deletebroadlocation/{broadbandLocId}/{userId}":{
+          "delete": {
+            "tags": [
+              "Broadband Location"
+            ],
+            "summary": "Delete New Broadband Location",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Create Broadband Location",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BroadbandLocation"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Broadband not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband Location Created Successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BroadbandLocation"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/buynewbroadband/{broadbandId}/{cardId}/{userId}":{
+          "post": {
+            "tags": [
+              "Broadband Ops"
+            ],
+            "summary": "Buy New Broadband Connection",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "cardId",
+                "in": "path",
+                "description": "cardId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "broadbandId",
+                "in": "path",
+                "description": "broadbandId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Buy New Broadband",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "address" :{
+                        "type" :"string"
+                      },
+                      "cvv" :{
+                        "type" :"number"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Broadband not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband Location Created Successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BroadbandReq"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/renewupgradebroadband/{cardId}/{userId}":{
+          "post": {
+            "tags": [
+              "Broadband Ops"
+            ],
+            "summary": "Renew or Upgrade Broadband Connection",
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "UserId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "cardId",
+                "in": "path",
+                "description": "cardId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Upgrade or renew Broadband",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "currentplan" : {
+                        "$ref": "#/components/schemas/BroadbandPayH"
+                      },
+                      "address" : {
+                        "type" :"string"
+                      },
+                      "cvv" : {
+                        "type" :"number"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Broadband not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband Location Created Successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BroadbandReq"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/plan/{planid}":{
+          "get": {
+            "tags": [
+              "Mobile Plans"
+            ],
+            "parameters": [
+              {
+                "name": "planid",
+                "in": "path",
+                "description": "planid",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "summary": "Get Mobile plan by id",
+            "responses": {
+              "400": {
+                "description": "mobile plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Mobile Plan by id",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Plans"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/plan/user/{userId}":{
+          "get": {
+            "tags": [
+              "Mobile Plans"
+            ],
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "summary": "Get Mobile Plans of the user",
+            "responses": {
+              "400": {
+                "description": "mobile plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Mobile Plan by id",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Plans"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/plan/create/{postid}/{cardId}/{userId}":{
+          "post": {
+            "tags": [
+              "Mobile Plans"
+            ],
+            "parameters": [
+              {
+                "name": "postid",
+                "in": "path",
+                "description": "postid",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "cardId",
+                "in": "path",
+                "description": "cardId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              },
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "summary": "Buy new Mobile Plan",
+            "requestBody" :{
+              "description": "Buy new Mobile Plans",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "cvv" : {
+                        "type" :"number"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "mobile plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Mobile Plan by id",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Plans"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/post/create/{userId}":{
+          "post": {
+            "tags": [
+              "Mobile Plans"
+            ],
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "summary": "Create new Mobile Plan",
+            "requestBody" :{
+              "description": "Create new Mobile Plans",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Posts"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "mobile plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Mobile Plan by id",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Posts"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/post/{postid}":{
+          "get": {
+            "tags": [
+              "Mobile Plans"
+            ],
+            "summary": "Get All Mobile Plans by id",
+            "parameters": [
+              {
+                "name": "postid",
+                "in": "path",
+                "description": "Mobile plan id",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Mobile id present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Mobile Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Posts"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/posts":{
+          "get": {
+            "tags": [
+              "Mobile Plans"
+            ],
+            "summary": "Get All Mobile Plans",
+            "responses": {
+              "400": {
+                "description": "Mobile plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Mobile Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Posts"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        ,
+        "/api/post/{postid}/{userId}":{
+          "put" :{
+              "tags": [
+                "Mobile Plans"
+              ],
+              "summary": "Update Mobile Plans by id",
+              "parameters": [
+                {
+                  "name": "postid",
+                  "in": "path",
+                  "description": "Mobile plan id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "userId",
+                  "in": "path",
+                  "description": "user id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "requestBody" :{
+                "description": "Create new Mobile Plans",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Posts"
+                    }
+                  }
+                },
+                "required": true
+              },
+              "responses": {
+                "400": {
+                  "description": "Mobile id present in database",
+                  "content": {}
+                },
+                "404": {
+                  "description": "Bad Request",
+                  "content": {}
+                },
+                "200": {
+                  "description": "Mobile Plan",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Posts"
+                      }
+                    }
+                  }
+                }
+              },
+              "security": [
+                {
+                  "jwt": []
+                }
+              ]
+          },
+          "delete" : {
+              "tags": [
+                "Mobile Plans"
+              ],
+              "summary": "Delete Mobile Plans by id",
+              "parameters": [
+                {
+                  "name": "postid",
+                  "in": "path",
+                  "description": "Mobile plan id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "userId",
+                  "in": "path",
+                  "description": "user id",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "requestBody" :{
+                "description": "Create new Mobile Plans",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/Posts"
+                    }
+                  }
+                },
+                "required": true
+              },
+              "responses": {
+                "400": {
+                  "description": "Mobile id present in database",
+                  "content": {}
+                },
+                "404": {
+                  "description": "Bad Request",
+                  "content": {}
+                },
+                "200": {
+                  "description": "Mobile Plan",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Posts"
+                      }
+                    }
+                  }
+                }
+              },
+              "security": [
+                {
+                  "jwt": []
+                }
+              ]
+          }
+        }
+        ,
+        "/api/data/{dataid}":{
+          "get": {
+            "tags": [
+              "Mobile Plans"
+            ],
+            "parameters": [
+              {
+                "name": "dataid",
+                "in": "path",
+                "description": "dataid",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "summary": "Get Data Consumption",
+            "responses": {
+              "400": {
+                "description": "Mobile plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Mobile Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/DataConsumption"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/datas":{
+          "get": {
+            "tags": [
+              "Mobile Plans"
+            ],
+            "summary": "Get Data Consumption",
+            "responses": {
+              "400": {
+                "description": "Mobile plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Mobile Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/DataConsumption"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/data/create":{
+          "post": {
+            "tags": [
+              "Mobile Plans"
+            ],
+            "summary": "Create Data Consumption",
+            "requestBody" :{
+              "description": "Create new Mobile Plans",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DataConsumption"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "400": {
+                "description": "Mobile plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Mobile Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/DataConsumption"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/broadband/user/{userId}":{
+          "get": {
+            "tags": [
+              "Broadband Ops"
+            ],
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "summary": "Get Current Broadband plans",
+            "responses": {
+              "400": {
+                "description": "Broadband plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Current Broadband Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BroadbandPayH"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+        ,
+        "/api/broadbandpayhis/user/{userId}":{
+          "get": {
+            "tags": [
+              "Broadband Ops"
+            ],
+            "parameters": [
+              {
+                "name": "userId",
+                "in": "path",
+                "description": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "summary": "Get Payment history for broadband plan for the userid",
+            "responses": {
+              "400": {
+                "description": "Mobile plan not present in database",
+                "content": {}
+              },
+              "404": {
+                "description": "Bad Request",
+                "content": {}
+              },
+              "200": {
+                "description": "Broadband history Plan",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/BroadbandPayH"
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "jwt": []
+              }
+            ]
+          }
+        }
+      
+
+      },
+
+     
+  "components": {
+    "schemas": {
+      "Category": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+         
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }, 
+        "description":{
+            "type": "string"
+        },
+        "price" :{
+          "type" :"number"
+        },
+        "stock" :{
+          "type" :"number"
+        },
+        "sold" :{
+          "type" :"number"
+        },
+        "category" :{
+          "type":"string"
+        },
+        "photo" :{
+          "type":"file"
+        }
+       
+    }
+  },
+  "Products":{
+      "type": "array",
+      "$ref": "#/components/schemas/Product"
+  },
+
+  "ProductOutput": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      }, 
+      "description":{
+          "type": "string"
+      },
+      "price" :{
+        "type" :"number"
+      },
+      "stock" :{
+        "type" :"number"
+      },
+      "sold" :{
+        "type" :"number"
+      },
+      "category" :{
+        "type":"string"
+      },
+      "photo" :{
+        "type":"object",
+        "properties":{
+          "data":{
+            "type":"string",
+            "format":"binary"
+          },
+          "contentType":{
+            "type":"string"
+          }
+        }
+      } 
+     
+  }
+},
+  
+  "User":{
+    "type": "object",
+    "properties": {
+      "_id":{
+        "type":"string"
+      },
+      "name": {
+        "type": "string"
+      }, 
+      "role":{
+          "type": "number"
+      },
+      "googleId" :{
+        "type" :"string"
+      },
+      "purchases" :{
+        "type" :"array"
+      },
+      "cart" :{
+          "type":"array",
+          "items": {
+            "$ref": "#/components/schemas/Product"
+          }
+      },
+      "email" :{
+        "type":"string"
+      },
+      "address":{
+        "type":"string"
+      },
+      "mobile":{
+        "type":"string"
+      } 
+   
+  }
+  },
+  
+ 
+  "CartIn":{
+    "type":"object",
+    "properties":{
+    "product":{
+      "type":"string"
+     },
+    "quantity":{
+      "type": "number"
+     }
+    }
+ },
+  "Cart":{
+     "type":"array",
+     "items": {
+      "$ref": "#/components/schemas/Product"
+    }
+  },
+  "Card":{
+    "type": "object",
+    "properties": {
+      "userId" :{
+        "type" : "string"
+    },
+    "cardtype":{
+        "type" : "string"
+    },
+    "cardnumber":{
+        "type":"number"
+    },
+    "expirydate":{
+        "type":"string"
+    },
+    "cardname":{
+        "type":"string"
+    }
+   
+  }
+  },
+  "ProductCart":{
+    "type":"object",
+    "properties":{
+      "_id" : {
+        "type" : "string"
+    },
+    "name" :{
+      "type":"string"
+    },
+    "count" :{
+      "type":"number"
+    },
+    "price" : {
+      "type":"number"
+    },
+    "category":{
+      "type":"string"
+    },
+    "description":{
+      "type":"string"
+    }
+  }
+  },
+  "Order": {
+    "type": "object",
+    "properties": {
+      "order":{
+        "type":"object",
+        "properties":{
+          "products": {
+            "type":"array",
+            "items": {
+              "$ref": "#/components/schemas/ProductCart"
+            }
+    
+          },
+          "transaction_id": {
+            "type": "string"
+          }, 
+          "address":{
+              "type": "string"
+          },
+          "amount" :{
+            "type" :"number"
+          },
+          "status" :{
+            "type" :"string"
+          },
+          "error" :{
+            "type" :"string"
+          },
+          "user" :{
+            "type":"string"
+          },
+          "cardId" :{
+            "type":"string"
+          } 
+        }
+      }
+  }
+},
+  "Orders":{
+    "type":"object",
+    "properties":{
+      "transaction_id":{
+          "type" : "string"
+      },
+      "amount":{
+        "type":"number"
+      },
+      "address" :{
+        "type": "string"
+      },
+      "status" : {
+        "type" : "String"     
+      },
+      "error" :{
+          "type" : "string"
+      },
+      "updated" : "date",
+      "user": {
+          "type" : "string"
+      },
+      "cardId" :{
+          "type" : "string"
+      }
+    }
+  },
+  "Broadband": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      }, 
+      "monthlyprice":{
+          "type": "number"
+      },
+      "plantype" :{
+        "type" :"string"
+      },
+      "validity" :{
+        "type" :"number"
+      },
+      "data" :{
+        "type" :"number"
+      },
+      "uploadspeed" :{
+        "type":"number"
+      },
+      "downloadspeed" :{
+        "type":"number"
+      },
+      "speed" :{
+        "type":"number"
+      },
+      "installationcharges":{
+        "type" : "number"
+      }
+    }
+  },
+  "BroadbandLocation" :{
+    "type": "object",
+    "properties": {
+      "suburb" : {
+        "type": "string"
+      },
+      "city" : {
+        "type": "string"
+      },
+      "state" : {
+        "type": "string"
+      },
+      "postalcode" : {
+        "type": "number"
+      }
+    }
+  },
+  "BroadbandReq" :{
+    "type": "object",
+    "properties": {
+      "user": {
+        "type" : "string"
+      },
+    "broadband" : {
+        "type" : "string"
+    },
+    "existingplanId" :{
+        "type" : "string"
+    },
+    "cardId" :{
+        "type" : "string"
+    },
+    "address" :{
+        "type" : "string"
+    },
+    "status" :{
+        "type" : "string"
+    },
+    "error" :{
+        "type" : "string"
+    },
+    "plantype" :{
+        "type" : "string"
+    },
+    "amount" : {
+        "type" : "number"
+    },
+    "transactionrefno" :{
+        "type" : "string"
+    },
+    "dueamount" :{
+        "type" : "number"
+    },
+    "isUpgrade" :{
+        "type" : "number"
+    },
+    "planduration":{
+        "type" : "number"
+    },
+    "plandata" :{
+        "type" : "number"
+    }
+  }
+  },
+  "BroadbandPayH" :{
+    "type": "object",
+    "properties": {
+      "userId" : {
+        "type" : "string"
+      },
+      "productId" : {
+          "type" : "string"
+      },
+      "plantype" : {
+          "type" : "string"
+      },
+      "planfrom" : {
+          "type" : "string"  
+      },
+      "plantill" : {
+          "type" : "string"
+      },
+      "referenceno" : {
+          "type" : "string"
+      },
+      "paymentstatus": {
+          "type" : "string"
+      },
+      "amount" : {
+          "type" : "number"
+      },
+      "status" : {
+          "type" : "string"
+      },
+      "isupgrade" : {
+          "type" : "number"
+      },
+      "planduration" :{
+          "type" :"number"
+      },
+      "usage" :{
+          "type" :"string"
+      },
+      "cardId" :{
+          "type" : "string"
+      }
+    }
+  },
+  "Plans" :{
+    "type": "object",
+    "properties": {
+      "plan_schema" :{
+        "type" : "string"
+       },
+      "user": {
+        "type" : "string"
+        },
+      "plan":{
+        "type" : "number"
+      },
+      "validity": {
+        "type" : "number"
+      
+      },
+      "data" : {
+          "type" : "number"
+      },
+      "SMS": {
+          "type" : "number"
+      },
+      "cost" :{
+          "type" : "number"
+      },
+      "transaction_id":{
+          "type" : "string"
+      },
+      "status" : {
+          "type" : "string"
+      },
+      "cardId" :{
+          "type" : "string"
+      },
+      "error" :{
+          "type" : "string"
+      }
+    }
+  },
+  "Posts" :{
+    "type": "object",
+    "properties": {
+      "plan":{
+        "type" : "number"
+      },
+      "validity": {
+          "type" : "number"
+      },
+      "data" : {
+          "type" : "number"
+      },
+      "SMS": {
+          "type" : "number"
+        
+      },
+      "cost" :{
+          "type" : "number"
+      }
+    }
+  },
+  "DataConsumption" :{
+    "type": "object",
+    "properties": {
+      "day":{
+        "type" : "number"
+      },
+      "dc":{
+        "type" : "number"
+      }
+    }
+  }
+      
+      },
+    "securitySchemes": {
+      "jwt": {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "in": "header",
+                    "bearerFormat": "JWT"
+                  }
+    }
+  }
+  }
